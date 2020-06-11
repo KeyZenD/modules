@@ -33,6 +33,7 @@ class BlackLinesMod(loader.Module):
 			photo = reply.media.photo
 		except:
 			await message.edit("reply to photo only")
+			return
 		
 		args = utils.get_args_raw(message)
 				
