@@ -36,7 +36,7 @@ class HelpMod(loader.Module):
                               "❮❮❮Доступные модули❯❯❯\n"),
                "mod_tmpl": "\n‣⟬{}⟭",
                "first_cmd_tmpl": "⋮ {}",
-               "cmd_tmpl": ", {}"}
+               "cmd_tmpl": " {}"}
 
     @loader.unrestricted
     async def helpcmd(self, message):
@@ -87,10 +87,10 @@ class HelpMod(loader.Module):
 	                            if await self.allmodules.check_security(message, func)]
 	                for cmd in commands:
 	                    if first:
-	                        reply += self.strings("first_cmd_tmpl", message).format("<code>"+cmd+"</code>")
+	                        reply += self.strings("first_cmd_tmpl", message).format("<code>."+cmd+"</code>")
 	                        first = False
 	                    else:
-	                        reply += self.strings("cmd_tmpl", message).format("<code>"+cmd+"</code>")
+	                        reply += self.strings("cmd_tmpl", message).format("<code>."+cmd+"</code>")
 	
         
         await utils.answer(message, reply)
