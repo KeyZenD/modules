@@ -4,13 +4,13 @@ from .. import loader, utils
 
 
 def register(cb):
-	cb(BlackLinesMod())
+	cb(Lines50Mod())
 
 
-class BlackLinesMod(loader.Module):
-	"""Draw line via @BlackLinesBot"""
+class Lines50Mod(loader.Module):
+	"""Draw photo with 50 lines via @Lines50Bot"""
 
-	strings = {'name': 'BlackLines'}
+	strings = {'name': 'Lines50'}
 
 	def __init__(self):
 		self.name = self.strings['name']
@@ -22,8 +22,8 @@ class BlackLinesMod(loader.Module):
 		self._client = client
 		self.me = await client.get_me()
 
-	async def linecmd(self, message):
-		""".line <reply to photo>"""
+	async def linescmd(self, message):
+		""".lines <reply to photo>"""
 		
 		reply = await message.get_reply_message()
 		if not reply:
@@ -35,20 +35,20 @@ class BlackLinesMod(loader.Module):
 			await message.edit("reply to photo only")
 			return
 		
-		args = utils.get_args_raw(message)
+		
 				
 				
-		chat = '@BlackLinesBot'
-		await message.edit('@BlackLinesBot <code>in process...</code>')
+		chat = '@Lines50Bot'
+		await message.edit('@Lines50Bot <code>in process...</code>')
 		async with message.client.conversation(chat) as conv:
 			try:
-				response = conv.wait_event(events.NewMessage(incoming=True, from_users=1051644279))
-				blank = conv.wait_event(events.NewMessage(incoming=True, from_users=1051644279))
-				await message.client.send_file(chat, photo, caption=args)
-				blank = await blank
+				response = conv.wait_event(events.NewMessage(incoming=True, from_users=1120861844))
+				
+				await message.client.send_file(chat, photo)
+				
 				response = await response
 			except YouBlockedUserError:
-				await message.reply('<code>Unblock</code> @BlackLinesBot')
+				await message.reply('<code>Unblock</code> @Lines50Bot')
 				return
 
 			await message.delete()
