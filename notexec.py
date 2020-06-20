@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 @loader.tds
 class ExecutorMod(loader.Module):
     """Stores global notes (aka snips)"""
-    strings = {"name": "NoNotes",
+    strings = {"name": "Notexec",
                "what_note": "<b>What notexec should be executed?</b>",
                "no_note": "<b>Notexec not found</b>",
                "execute_fail": ("<b>Failed to execute expression:</b>\n<code>{}</code>"
