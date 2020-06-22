@@ -1,3 +1,5 @@
+# requires: pillow
+# requires: wand
 from .. import loader, utils
 import io
 from telethon.tl.types import DocumentAttributeFilename
@@ -67,7 +69,8 @@ class DistortNoApiMod(loader.Module):
         im.save(out, mime.upper())
         out.seek(0)
         await message.edit("<code>S e n d i n g . . .</code>")
-        await message.client.send_file(message.to_id, out)
+        await message.client.send_file(message.to_id, out, reply_to=reply_message.id)
+
         await message.delete()
 
 async def distort(file, rescale_rate):
