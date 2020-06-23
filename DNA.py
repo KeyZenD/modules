@@ -85,28 +85,28 @@ async def distort(file, rescale_rate):
     img.save(file=out)
     return io.BytesIO(out.getvalue())
 
-
 async def check_media(reply_message):
+    mime = None
     if reply_message and reply_message.media:
         if reply_message.photo:
             data = reply_message.photo
             mime = 'image/jpeg'
         elif reply_message.document:
             if DocumentAttributeFilename(file_name='AnimatedSticker.tgs') in reply_message.media.document.attributes:
-                return False
+                return False, mime
             if reply_message.gif or reply_message.video or reply_message.audio or reply_message.voice:
-                return False
+                return False, mime
             data = reply_message.media.document
             mime = reply_message.media.document.mime_type
             if 'image/' not in mime:
-                return False
+                return False, mime
         else:
-            return False
+            return False, mime
     else:
-        return False
+        return False, mime
 
     if not data or data is None:
-        return False
+        return False, mime
     else:
         mime = mime.split('/')[1]
         return data, mime
