@@ -21,7 +21,7 @@ class PingerMod(loader.Module):
 					await response.delete()
 				except:
 					ok = False
-				text f"✅{chat}\n" if ok else f"⛔{chat}\n"
+				text = f"✅{chat}\n" if ok else f"⛔{chat}\n"
 				await ping.delete()
 			await message.edit(text)
 		
