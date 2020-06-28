@@ -7,7 +7,9 @@ logger = logging.getLogger(__name__)
 @loader.tds
 class PingerMod(loader.Module):
 	strings = {"name": "Pinger"}
-	@loader.ratelimit
+	def __init__(self):
+		self.name = self.strings['name']
+	@loader.tds
 	async def pingercmd(self, message):
 		"""Пингер"""
 		text = ""
