@@ -1,8 +1,8 @@
 from .. import loader, utils
 import logging
 import asyncio
-from asyncio import sleep
 from telethon import events
+from datetime import datetime
 logger = logging.getLogger(__name__)
 @loader.tds
 class PingerMod(loader.Module):
@@ -15,13 +15,17 @@ class PingerMod(loader.Module):
 			async with message.client.conversation(chat) as conv:
 				response = conv.wait_event(events.NewMessage(incoming=True, from_users=chat), timeout=1)
 				ping = await message.client.send_message(chat, "/ping")
+				start = datetime.now()
 				try:
 					response = await response
+					end = datetime.now()
 					ok = True
 					await response.delete()
 				except:
-					ok = False
-				text += f"✅{chat}\n" if ok else f"⛔{chat}\n"
+					ok = end = False
+				if end:
+					duration = (end - start).microseconds / 1000
+				text += f"✅{chat}: {duration}ms\n" if ok else f"⛔{chat}\n"
 				await ping.delete()
 			await message.edit(text)
 		
