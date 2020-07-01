@@ -56,7 +56,11 @@ class BanMod(loader.Module):
             args = utils.get_args(message)
             if len(args) == 0:
                 return await utils.answer(message, self.strings("ban_none", message))
-            user = await self.client.get_entity(args[0])
+            if args[0].isdigit():
+                who = int(args[0])
+            else:
+                who = args[0]
+            user = await self.client.get_entity(who)
         if not user:
             return await utils.answer(message, self.strings("who", message))
         logger.debug(user)
@@ -82,7 +86,11 @@ class BanMod(loader.Module):
             args = utils.get_args(message)
             if len(args) == 0:
                 return await utils.answer(message, self.strings("unban_none", message))
-            user = await self.client.get_entity(args[0])
+            if args[0].isdigit():
+                who = int(args[0])
+            else:
+                who = args[0]
+            user = await self.client.get_entity(who)
         if not user:
             return await utils.answer(message, self.strings("who", message))
         logger.debug(user)
@@ -108,7 +116,11 @@ class BanMod(loader.Module):
             args = utils.get_args(message)
             if len(args) == 0:
                 return await utils.answer(message, self.strings("kick_none", message))
-            user = await self.client.get_entity(args[0])
+            if args[0].isdigit():
+                who = int(args[0])
+            else:
+                who = args[0]
+            user = await self.client.get_entity(who)
         if not user:
             return await utils.answer(message, self.strings("who", message))
         logger.debug(user)
@@ -135,12 +147,16 @@ class BanMod(loader.Module):
             args = utils.get_args(message)
             if not args:
                 return await utils.answer(message, self.strings("promote_none", message))
-            user = await self.client.get_entity(args[0])
+            if args[0].isdigit():
+                who = int(args[0])
+            else:
+                who = args[0]
+            user = await self.client.get_entity(who)
         if not user:
             return await utils.answer(message, self.strings("who", message))
         rank = ""
         if len(args) >= 1:
-            rank = args[1]
+            rank = ' '.join(args[1:])
         logger.debug(user)
         try:
             if message.is_channel:
@@ -169,7 +185,11 @@ class BanMod(loader.Module):
             args = utils.get_args(message)
             if len(args) == 0:
                 return await utils.answer(message, self.strings("demote_none", message))
-            user = await self.client.get_entity(args[0])
+            if args[0].isdigit():
+                who = int(args[0])
+            else:
+                who = args[0]
+            user = await self.client.get_entity(who)
         if not user:
             return await utils.answer(message, self.strings("who", message))
         logger.debug(user)
