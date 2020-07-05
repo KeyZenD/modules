@@ -41,5 +41,5 @@ class WebShotMod(loader.Module):
 		file = io.BytesIO(file.content)
 		file.name = "webshot.png"
 		file.seek(0)
-		await message.client.send_file(message.to_id, file, reply=reply_id)
+		await message.client.send_file(message.to_id, file, reply_to=reply_id)
 		await message.delete()
