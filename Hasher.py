@@ -37,7 +37,7 @@ class HasherMod(loader.Module):
 	async def blake2bcmd(self, message):
 		""".blake2 <(text or media) or (reply to text or media)\nHashing to blake2"""
 		await hashing(message, 6)
-	async def blake2s(self, message):
+	async def blake2scmd(self, message):
 		""".blake2s <(text or media) or (reply to text or media)\nHashing to blake2s"""
 		await hashing(message, 7)
 	
