@@ -28,7 +28,7 @@ class CirclesMod(loader.Module):
 	
 	
 	@loader.sudo
-	async def gridcmd(self, message):
+	async def roundcmd(self, message):
 		""".round <Reply to image/sticker or video/gif>"""
 		reply = None
 		if message.is_reply:
