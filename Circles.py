@@ -46,7 +46,7 @@ class CirclesMod(loader.Module):
 			img = io.BytesIO()
 			bytes = await message.client.download_file(data, img)
 			im = Image.open(img)
-			w, h = img.size
+			w, h = im.size
 			img = Image.new("RGBA", (w,h), (0,0,0,0))
 			img.paste(im, (0, 0))
 			m = min(w, h)
