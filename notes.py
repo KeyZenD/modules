@@ -18,7 +18,7 @@ import logging
 
 from .. import loader, utils
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("friendly-telegram.modules.notes")
 
 
 @loader.tds
@@ -44,7 +44,7 @@ class NotesMod(loader.Module):
         if not args:
             await utils.answer(message, self.strings("what_note", message))
             return
-        asset_id = self._db.get(__name__, "notes", {}).get(args[0], None)
+        asset_id = self._db.get("friendly-telegram.modules.notes", "notes", {}).get(args[0], None)
         logger.debug(asset_id)
         if asset_id is not None:
             asset = await self._db.fetch_asset(asset_id)
@@ -59,10 +59,10 @@ class NotesMod(loader.Module):
 
     async def delallnotescmd(self, message):
         """Deletes all the saved notes"""
-        if not self._db.get(__name__, "notes", {}):
+        if not self._db.get("friendly-telegram.modules.notes", "notes", {}):
             await utils.answer(message, self.strings("delnotes_none", message))
             return
-        self._db.get(__name__, "notes", {}).clear()
+        self._db.get("friendly-telegram.modules.notes", "notes", {}).clear()
         await utils.answer(message, self.strings("delnotes_done", message))
 
     async def savecmd(self, message):
@@ -83,7 +83,7 @@ class NotesMod(loader.Module):
         else:
             target = await message.get_reply_message()
         asset_id = await self._db.store_asset(target)
-        self._db.set(__name__, "notes", {**self._db.get(__name__, "notes", {}), args[0]: asset_id})
+        self._db.set("friendly-telegram.modules.notes", "notes", {**self._db.get("friendly-telegram.modules.notes", "notes", {}), args[0]: asset_id})
         await utils.answer(message, str(self.strings("saved", message)).format(args[0]))
 
     async def delnotecmd(self, message):
@@ -95,22 +95,22 @@ class NotesMod(loader.Module):
         await utils.answer(message, self.strings("delnote_done", message))
 
     def del_note(self, note):
-        old = self._db.get(__name__, "notes", {})
+        old = self._db.get("friendly-telegram.modules.notes", "notes", {})
         try:
             del old[note]
         except KeyError:
             pass
         else:
-            self._db.set(__name__, "notes", old)
+            self._db.set("friendly-telegram.modules.notes", "notes", old)
 
     async def notescmd(self, message):
         """List the saved notes"""
-        if not self._db.get(__name__, "notes", {}):
+        if not self._db.get("friendly-telegram.modules.notes", "notes", {}):
             await utils.answer(message, self.strings("notes_none", message))
             return
         await utils.answer(message, self.strings("notes_header", message)
                            + "\n".join(self.strings("notes_item", message).format(key)
-                           for key in self._db.get(__name__, "notes", {})))
+                           for key in self._db.get("friendly-telegram.modules.notes", "notes", {})))
 
     async def client_ready(self, client, db):
         self._db = db
