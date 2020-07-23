@@ -35,7 +35,7 @@ class QRtoolsMod(loader.Module):
 		await message.client.send_file(message.to_id, qrcode, reply_to=reply, force_document=file)
 		
 	@loader.owner
-	async def readrqcmd(self, message):
+	async def readqrcmd(self, message):
 		""".readqr <qrcode or reply to qrcode>"""
 		ok = await check(message)
 		if not ok:
