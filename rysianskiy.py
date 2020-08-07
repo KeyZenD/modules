@@ -20,8 +20,9 @@ class RysianskiyMod(loader.Module):
         otvet = await soobshenie.get_reply_message()
         vvod = utils.get_args_raw(soobshenie)
         if not vvod:
-            if not otvet and not otvet.text:
+            if not otvet or not otvet.text:
                 await utils.answer(soobshenie, self.strings("nety_teksta", soobshenie))
+                return
             else:
                 tekst = otvet.raw_text
         else:
