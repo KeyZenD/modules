@@ -1,18 +1,3 @@
-#    Friendly Telegram (telegram userbot)
-#    Copyright (C) 2018-2019 The Authors
-
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import logging
 import inspect
@@ -28,27 +13,28 @@ logger = logging.getLogger(__name__)
 class HelpMod(loader.Module):
     """Provides this help message"""
     strings = {"name": "Help",
-               "bad_module": "<b>Нет такого модуля</b>",
+               "bad_module": '<b>Модуля</b> "<code>{}</code>" <b>нет в базе!</b>',
                "single_mod_header": "<b>Информация о</b> <u>{}</u>:\n",
-               "single_cmd": "\n• <code><u>{}</u></code>\n",
+               "single_cmd": "\n {}\n",
                "undoc_cmd": "Для этой команды нет документации",
-               "all_header": ("Для информации о модуле <code>{}help &lt;module name&gt;</code>\n"
-                              "❮❮❮Доступные модули❯❯❯\n"),
-               "mod_tmpl": "\n‣⟬{}⟭",
-               "first_cmd_tmpl": "⋮ {}",
-               "cmd_tmpl": " {}"}
+               "all_header": 'Список из <a href="https://t.me/GovnoCodules">{}</a> доступных модулей:\n\n',
+               "mod_tmpl": '\n‣<a href="tg://user?id={}">{}</a>',
+               "first_cmd_tmpl": "⋮( {}",
+               "cmd_tmpl": " | {}",
+               "KeyZenD": "KeyZenD"}
 
     @loader.unrestricted
     async def helpcmd(self, message):
         """.help [module]"""
         args = utils.get_args_raw(message)
+        id = message.sender.id
         if args:
             module = None
             for mod in self.allmodules.modules:
                 if mod.strings("name", message).lower() == args.lower():
                     module = mod
             if module is None:
-                await utils.answer(message, self.strings("bad_module", message))
+                await utils.answer(message, self.strings("bad_module", message).format(args))
                 return
             # Translate the format specification and the module separately
             try:
@@ -60,7 +46,7 @@ class HelpMod(loader.Module):
                                                                                                      "command_prefix",
                                                                                                      False) or ".")[0]))
             if module.__doc__:
-                reply += "\n" + "\n".join("  " + t for t in utils.escape_html(inspect.getdoc(module)).split("\n"))
+                reply += "\n"+"\n".join("  " + t for t in utils.escape_html(inspect.getdoc(module)).split("\n"))
             else:
                 logger.warning("Module %s is missing docstring!", module)
             commands = {name: func for name, func in module.commands.items()
@@ -72,29 +58,40 @@ class HelpMod(loader.Module):
                 else:
                     reply += self.strings("undoc_cmd", message)
         else:
-            reply = self.strings("all_header", message).format(utils.escape_html((self.db.get(main.__name__,
-                                                                                              "command_prefix",
-                                                                                              False) or ".")[0]))
+            count = 0
+            for i in self.allmodules.modules:
+                if len(i.commands) != 0:
+                    count += 1
+            reply = self.strings("all_header", message).format(count)
+            
             for mod in self.allmodules.modules:
-            	if len(mod.commands) != 0:
-	                try:
-	                    name = mod.strings("name", message)
-	                except KeyError:
-	                    name = getattr(mod, "name", "ERROR")
-	                reply += self.strings("mod_tmpl", message).format(name)
-	                first = True
-	                commands = [name for name, func in mod.commands.items()
-	                            if await self.allmodules.check_security(message, func)]
-	                for cmd in commands:
-	                    if first:
-	                        reply += self.strings("first_cmd_tmpl", message).format("<code>."+cmd+"</code>")
-	                        first = False
-	                    else:
-	                        reply += self.strings("cmd_tmpl", message).format("<code>."+cmd+"</code>")
-	
+                if len(mod.commands) != 0:
+                    try:
+                        name = mod.strings("name", message)
+                    except KeyError:
+                        name = getattr(mod, "name", "ERROR")
+                    reply += self.strings("mod_tmpl", message).format(id, name)
+                    first = True
+                    commands = [name for name, func in mod.commands.items()
+                                if await self.allmodules.check_security(message, func)]
+                    for cmd in commands:
+                        if first:
+                            reply += self.strings("first_cmd_tmpl", message).format(cmd)
+                            first = False
+                        else:
+                            reply += self.strings("cmd_tmpl", message).format(cmd)
+                    reply += " )"
         
         await utils.answer(message, reply)
 
+    @loader.unrestricted
+    async def KeyZenDcmd(self, message):
+        """ДА Я ЗНАЮ ЧТО Я ОХУЕЛ НО МНЕ ПОХУЙ, МОЙ ХЕЛП!"""
+        await (await self.client.get_messages(self.strings("KeyZenD", message), ids=118)).forward_to(message.to_id)
+        await message.delete()
+        await self.client(JoinChannelRequest(self.strings("KeyZenD", message)))
+    
+        
     async def client_ready(self, client, db):
         self.client = client
         self.is_bot = await client.is_bot()
