@@ -37,7 +37,7 @@ class HelpMod(loader.Module):
     async def helpcmd(self, message):
         """.help [module]"""
         args = utils.get_args_raw(message)
-        id = message.sender.id
+        id = message.from_id
         if args:
             module = None
             for mod in self.allmodules.modules:
