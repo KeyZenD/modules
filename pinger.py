@@ -13,7 +13,7 @@ class PingerMod(loader.Module):
 	async def pingercmd(self, message):
 		"""Пингер"""
 		text = ""
-		for chat in ["@QuickResponseCodeBot", "@onlineVKtracking_bot", "@StickerpackLinkBot", "@ColoriZatioN_bot", "@BlackLinesBot", "@QuickLinksBot", "@KeyZenD_bot"]:
+		for chat in ["@QuickResponseCodeBot", "@StickerpackLinkBot", "@ColoriZatioN_bot", "@BlackLinesBot", "@QuickLinksBot", "@KeyZenD_bot"]:
 			async with message.client.conversation(chat) as conv:
 				response = conv.wait_event(events.NewMessage(incoming=True, from_users=chat), timeout=1)
 				ping = await message.client.send_message(chat, "/ping")
