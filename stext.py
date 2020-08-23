@@ -4,7 +4,7 @@ import logging
 import requests
 from textwrap import wrap
 from PIL import Image, ImageDraw, ImageFont
-
+bytes_font = requests.get("https://github.com/KeyZenD/l/blob/master/font.ttf?raw=true").content
 logger = logging.getLogger(__name__)
 
 def register(cb):
@@ -53,8 +53,7 @@ class Text2stickMod(loader.Module):
 		for line in text.split("\n"):
 			txt.append("\n".join(wrap(line, 30)))
 		text = "\n".join(txt)
-		font = requests.get("https://github.com/KeyZenD/l/blob/master/font.ttf?raw=true").content
-		font = io.BytesIO(font)
+		font = io.BytesIO(bytes_font)
 		font = ImageFont.truetype(font, 100)
 		image = Image.new("RGBA", (1, 1), (0,0,0,0)) 
 		draw = ImageDraw.Draw(image) 
