@@ -4,7 +4,7 @@ import logging
 import requests
 from textwrap import wrap
 from PIL import Image, ImageDraw, ImageFont
-bytes_font = requests.get("https://github.com/KeyZenD/l/blob/master/font.ttf?raw=true").content
+bytes_font = requests.get("https://github.com/KeyZenD/l/blob/master/bold.ttf?raw=true").content
 logger = logging.getLogger(__name__)
 
 def register(cb):
