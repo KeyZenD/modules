@@ -32,8 +32,7 @@ class ExecutorMod(loader.Module):
     strings = {"name": "Notexec",
                "what_note": "<b>What notexec should be executed?</b>",
                "no_note": "<b>Notexec not found</b>",
-               "execute_fail": ("<b>Failed to execute expression:</b>\n<code>{}</code>"
-                                "\n\n<b>Due to:</b>\n<code>{}</code>")
+               "execute_fail": ("<b>Failed to execute expression:</b>\n<code>{}</code>")
                }
     async def notexeccmd(self, message):
         """Gets the note specified"""
@@ -64,7 +63,7 @@ class ExecutorMod(loader.Module):
             exc = sys.exc_info()
             exc = "".join(traceback.format_exception(exc[0], exc[1], exc[2].tb_next.tb_next.tb_next))
             await utils.answer(message, self.strings("execute_fail", message)
-                               .format(utils.escape_html(cmd.raw_text), utils.escape_html(exc)))
+                               .format(utils.escape_html(exc)))
             return
 
 
@@ -75,7 +74,7 @@ class ExecutorMod(loader.Module):
 
     async def getattrs(self, message):
         return {"message": message, "client": self.client, "self": self, "db": self.db,
-                "reply": await message.get_reply_message(), **self.get_types(), **self.get_functions()}
+                "reply": await message.get_reply_message(), "event": message,"chat": message.to_id , **self.get_types(), **self.get_functions()}
 
     def get_types(self):
         return self.get_sub(telethon.tl.types)
