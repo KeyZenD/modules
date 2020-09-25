@@ -19,7 +19,7 @@ class aMod(loader.Module):
 		else:await A.edit(J);return
 		try:L=Image.open(B).convert(M)
 		except:await A.edit(J);return
-		F,G=L.size;B=Image.new(M,(F,G));B.paste(L,(0,0),L);I=min(F//100,G//100);D=Image.new(M,(F+I*40,G+I*40),'#fff');E=Image.new(M,(F,G))
+		await A.edit('<b>Working...</b>');F,G=L.size;B=Image.new(M,(F,G));B.paste(L,(0,0),L);I=min(F//100,G//100);D=Image.new(M,(F+I*40,G+I*40),'#fff');E=Image.new(M,(F,G))
 		for N in range(F):
 			for O in range(G):
 				if B.getpixel((N,O))!=(0,0,0,0):E.putpixel((N,O),(0,0,0))
