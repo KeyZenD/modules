@@ -26,7 +26,7 @@ class aMod(loader.Module):
 				for O in range(G):
 					if B.getpixel((N,O))!=(0,0,0,0):E.putpixel((N,O),(0,0,0))
 		else:B.paste(I,(0,0));E=Image.new(L,(F,G),'black')
-		E=E.resize((F+J*5,G+J+5));D.paste(E,((D.width-E.width)//2,(D.height-E.height)//2),E);D=D.filter(ImageFilter.GaussianBlur(J*5));D.paste(B,((D.width-B.width)//2,(D.height-B.height)//2),B);H=io.BytesIO();H.name='-'.join([''.join([random.choice(string.hexdigits)for B in range(A)])for A in[5,4,3,2,1]])+'.png';D.save(H,'PNG');H.seek(0)
+		E=E.resize((F+J*5,G+J*5));D.paste(E,((D.width-E.width)//2,(D.height-E.height)//2),E);D=D.filter(ImageFilter.GaussianBlur(J*5));D.paste(B,((D.width-B.width)//2,(D.height-B.height)//2),B);H=io.BytesIO();H.name='-'.join([''.join([random.choice(string.hexdigits)for B in range(A)])for A in[5,4,3,2,1]])+'.png';D.save(H,'PNG');H.seek(0)
 		if utils.get_args_raw(A):await A.client.send_file(A.to_id,H,force_document=R);await A.delete()
 		elif M:await C.reply(file=H);await A.delete()
 		else:await A.edit(file=H,text='')
