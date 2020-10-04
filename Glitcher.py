@@ -11,7 +11,8 @@ class GlitcherMod(loader.Module):
     """Glitcher of anything"""
     strings = {"name": "Glitcher",
                "reply": "Reply to message!",
-               "error": "Impossible to upload file!"}
+               "error": "Impossible to upload file!",
+			   "processing": "Work in progress!"}
 
     @loader.unrestricted
     async def glitchcmd(self, message):
@@ -35,7 +36,7 @@ class GlitcherMod(loader.Module):
             percent = float(utils.get_args_raw(message))
         except ValueError or TypeError:
             pass
-        
+        await message.edit("".join([ random.choice(html).format(ch) for ch in self.strings("processing", message)]))
         with open(infile, 'rb') as inf:
             with open(outfile, 'wb') as outf:
                 fileext = infile.split(".")[1]
