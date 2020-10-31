@@ -54,7 +54,7 @@ class NotesMod(loader.Module):
             self.del_note(args[0])
             await utils.answer(message, self.strings("no_note", message))
             return
-
+        await message.delete()
         await message.client.send_message(message.to_id, await self._db.fetch_asset(asset_id), reply_to=await message.get_reply_message())
 
     async def delallnotescmd(self, message):
