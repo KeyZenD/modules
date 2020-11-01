@@ -46,8 +46,8 @@ async def cmds(message, type):
 	bytes_image = await event.download_media(bytes)
 	demotivator = await demotion(font_bytes, bytes_image, text, type)
 	if is_reply:
-		return await event.reply(file=demotivator)
 		await message.delete()
+		return await event.reply(file=demotivator)
 	else:
 		return await event.edit(file=demotivator, text="")
 	
