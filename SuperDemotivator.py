@@ -107,7 +107,7 @@ async def _draw_text(
 			text,
 			font_bytes,
 			font_size,
-			font_add = 20,
+			font_add = 30,
 			main_fill = (0, 0, 0),
 			text_fill = (255, 255, 255),
 			text_align = "center"
