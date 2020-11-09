@@ -34,5 +34,5 @@ class filenameMod(loader.Module):
 		[await message.edit(f"<b>Downloading {fn}</b>") if fs > 500000 else ...]
 		file = await reply.download_media(bytes)
 		[await message.edit(f"<b>Uploading</b> <code>{name}</code>") if fs > 500000 else ...]
-		await message.client.send_file(message.to_id, file, reply_to=reply, attributes=[DocumentAttributeFilename(file_name=name)])
+		await message.client.send_file(message.to_id, file, force_document=True, reply_to=reply, attributes=[DocumentAttributeFilename(file_name=name)])
 		await message.delete()
