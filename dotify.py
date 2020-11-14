@@ -43,7 +43,7 @@ async def parse(message):
 
 async def dotify(message, reply, pix, mode):
 	await message.edit("<b>Putting dots...</b>")
-	count = 22
+	count = 24
 	im_ = Image.open(io.BytesIO(await reply.download_media(bytes)))
 	if im_.mode == "RGBA":
 		temp = Image.new("RGB", im_.size, "#000")
