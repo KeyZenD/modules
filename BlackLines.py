@@ -43,9 +43,7 @@ class BlackLinesMod(loader.Module):
 		async with message.client.conversation(chat) as conv:
 			try:
 				response = conv.wait_event(events.NewMessage(incoming=True, from_users=1051644279))
-				blank = conv.wait_event(events.NewMessage(incoming=True, from_users=1051644279))
 				await message.client.send_file(chat, photo, caption=args)
-				blank = await blank
 				response = await response
 			except YouBlockedUserError:
 				await message.reply('<code>Unblock</code> @BlackLinesBot')
