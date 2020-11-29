@@ -26,7 +26,7 @@ class py2pngMod(loader.Module):
 	@loader.sudo
 	async def pypngcmd(self, message):
 		"""reply to text code or py file"""
-		message.edit("<b>Py to PNG</b>")
+		await message.edit("<b>Py to PNG</b>")
 		reply = await message.get_reply_message()
 		if not reply:
 			await message.edit("<b>reply to file.py</b>")
