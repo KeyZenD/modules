@@ -23,7 +23,7 @@ class CirclesMod(loader.Module):
 		self.name = self.strings['name']
 		
 	async def client_ready(self, client, db):
-		self.client = message.client
+		self.client = client
 	
 	
 	
