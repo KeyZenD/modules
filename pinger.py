@@ -13,10 +13,10 @@ class PingerMod(loader.Module):
 	async def pingercmd(self, message):
 		"""Пингер"""
 		text = ""
-		for chat in ["@QuickResponseCodeBot", "@StickerpackLinkBot", "@ColoriZatioN_bot", "@BlackLinesBot", "@QuickLinksBot", "@KeyZenD_bot"]:
+		for chat in ['@QuickResponseCodeBot','@StickerpackLinkBot','@ColoriZatioN_bot','@AntiCommentsBot','@BlackLinesBot','@QuickLinksBot','@xClicker_bot','@KeyZenD_bot']:
 			async with message.client.conversation(chat) as conv:
 				response = conv.wait_event(events.NewMessage(incoming=True, from_users=chat), timeout=1)
-				ping = await message.client.send_message(chat, "/ping")
+				ping = await message.client.send_message(chat, "/start")
 				start = datetime.now()
 				try:
 					response = await response
@@ -27,7 +27,8 @@ class PingerMod(loader.Module):
 					ok = end = False
 				if end:
 					duration = (end - start).microseconds / 1000
-				text += f"✅{chat}: {duration}ms\n" if ok else f"⛔{chat}\n"
+				text += f"<a href='https://t.me/{chat[1:]}'>✅</a><code>{chat[1:]}:{' '*(22-len(chat))}|</code><a href='https://t.me/{chat[1:]}'>{duration}ms</a>\n" if ok else f"<a href='https://t.me/{chat[1:]}'>⛔</a><code>{chat[1:]}</code>\n"
 				await ping.delete()
 			await message.edit(text)
 		
+
