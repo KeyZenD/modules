@@ -11,7 +11,7 @@ class SquareBlurMod(loader.Module):
 		"""make image 1:1 ratio"""
 		reply = await message.get_reply_message()
 		if not reply or not reply.file or not reply.file.mime_type.split("/")[0].lower() == "image":
-			await message.edit("<b>Repky to image!</b>")
+			await message.edit("<b>Reply to image!</b>")
 			return
 		im = io.BytesIO()
 		await reply.download_media(im)
