@@ -104,7 +104,7 @@ class ZipMod(loader.Module):
 			os.system("rm -rf zip-temp-dir")
 		
 	@loader.unrestricted
-	async def zipcmd(self, message):
+	async def zipcleancmd(self, message):
 		""".zipclear - очищает папку с файлами"""
 		os.system("rm -rf zip-temp-dir")
 		await message.edit('<b>[ZIP]Очищено!</b>')
