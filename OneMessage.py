@@ -1,5 +1,6 @@
 from .. import loader, utils
-
+from telethon.tl.types import Message
+		
 class OneMessageMod(loader.Module):
 	"""@faq lines"""
 	strings = {'name': 'OneMessage'}
@@ -22,6 +23,8 @@ class OneMessageMod(loader.Module):
 		await message.edit("<b>OneMessage mode diactivated!</b>")
 			
 	async def watcher(self, message):
+		if not isinstance(message, Message):
+			return
 		if message.message:
 			if message.raw_text[0] in self._db.get("friendly-telegram.modules.corectrl", "command_prefix", ".") or message.fwd_from:
 				return
