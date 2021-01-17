@@ -33,5 +33,5 @@ class WhatMod(loader.Module):
 		im.save(out)
 		out.seek(0)
 		await message.delete()
-		await reply.reply(file=out)
+		return await reply.reply(file=out)
 		
