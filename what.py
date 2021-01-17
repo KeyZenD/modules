@@ -19,6 +19,7 @@ class WhatMod(loader.Module):
 		if not reply or not reply.file.mime_type.split("/")[0].lower() == "image":
 			await message.edit("<b>Reply to img!</b>")
 			return
+		await message.edit("<b>What is it?</b>")
 		im = BytesIO()
 		await reply.download_media(im)
 		im = Image.open(im)
