@@ -196,8 +196,9 @@ class MessageEditor:
            #  text += self.strings("finished", self.request_message).format(utils.escape_html(str(self.rc)))
         text += self.strings("stdout", self.request_message)
         text += utils.escape_html(self.stdout[max(len(self.stdout) - 2048, 0):])
-        text += self.strings("stderr", self.request_message)
-        text += utils.escape_html(self.stderr[max(len(self.stderr) - 1024, 0):])
+        if len(self.stderr) > 0:
+        	text += self.strings("stderr", self.request_message)
+        	text += utils.escape_html(self.stderr[max(len(self.stderr) - 1024, 0):])
         text += self.strings("end", self.request_message)
         try:
             self.message = await utils.answer(self.message, text)
