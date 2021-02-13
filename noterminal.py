@@ -191,9 +191,9 @@ class MessageEditor:
         await self.redraw()
 
     async def redraw(self):
-        text = self.strings("running", self.request_message).format(utils.escape_html(self.command))
-        if self.rc is not None:
-            text += self.strings("finished", self.request_message).format(utils.escape_html(str(self.rc)))
+        text = "" # self.strings("running", self.request_message).format(utils.escape_html(self.command))
+        # if self.rc is not None:
+           #  text += self.strings("finished", self.request_message).format(utils.escape_html(str(self.rc)))
         text += self.strings("stdout", self.request_message)
         text += utils.escape_html(self.stdout[max(len(self.stdout) - 2048, 0):])
         text += self.strings("stderr", self.request_message)
