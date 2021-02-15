@@ -36,4 +36,6 @@ class ValitesMod(loader.Module):
 			pre = round(float(val["Previous"]), 3)
 			way = "🔹" if now == pre else "🔻" if now < pre else "🔺"
 			text.append(temp.format(name, nom, code, now, way, pre))
+		if not text:
+			return await utils.answer(message, "<b>Запрос неверен - ответ пуст!</b>")
 		await utils.answer(message, "\n".join(text))
