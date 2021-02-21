@@ -22,6 +22,7 @@ class Im2BinaryMod(loader.Module):
 		if not img:
 			await message.delete()
 			return await message.client.send_file(message.chat.id, get("https://thiscatdoesnotexist.com").content, caption=choice(["<b>Тебе картинок мало?</b>"]+[None]*100))
+		await message.edit("<b>Processing...</b>")
 		img = await image_to_text(words, img, False)
 		[await message.delete(), await (await message.get_reply_message()).reply(file=img)] if not me else await message.edit(file=img, text="")
 	@loader.unrestricted
@@ -31,6 +32,7 @@ class Im2BinaryMod(loader.Module):
 		if not img:
 			await message.delete()
 			return await message.client.send_file(message.chat.id, get("https://thiscatdoesnotexist.com").content, caption=choice(["<b>Тебе картинок мало?</b>"]+[None]*100))
+		await message.edit("<b>Processing...</b>")
 		img = await image_to_text(words, img, True)
 		[await message.delete(), await (await message.get_reply_message()).reply(file=img)] if not me else await message.edit(file=img, text="")
 
