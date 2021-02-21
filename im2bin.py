@@ -9,6 +9,7 @@ from .. import loader, utils
 
 logger = logging.getLogger(__name__)
 
+font_ = get("https://x0.at/MHH.ttf").content
 
 @loader.tds
 class Im2BinaryMod(loader.Module):
@@ -59,13 +60,12 @@ async def prepare(message):
 	return img, words, me
 
 async def image_to_text(words, img, rand):
-	font_ = get("https://x0.at/MHH.ttf").content
 	inp = Image.open(io.BytesIO(img))
 	img = Image.new("RGBA", inp.size, "#000")
 	res = img.copy()
 	img.paste(inp, (0, 0), inp if inp.mode == "RGBA" else None)
 	w, h = img.size
-	font = ImageFont.truetype(io.BytesIO(font_), (max(w, h)//70))
+	font = ImageFont.truetype(io.BytesIO(font_), 15)
 	mw = min(map(lambda x: font.getsize(x)[0], "".join(words)))
 	mh = min(map(lambda x: font.getsize(x)[1], "".join(words)))
 	rand_ = 0
@@ -83,10 +83,11 @@ async def image_to_text(words, img, rand):
 	im = Image.new("L", (wt, ht), 0)
 	ImageDraw.Draw(im).multiline_text((0, -3), font=font, text=text, spacing=0, fill=255)
 	im = im.crop((0, 0, w, h))
+	im = Image.frombytes("L", (w, h), bytes([255 if x > 150 else 0 for x in im.tobytes()]))
 	img.putalpha(im)
 	res.paste(img, (0, 0), img)
 	out = io.BytesIO()
 	out.name = words[0] + ".png"
 	res.save(out)
 	out.seek(0)
-	return out 
+	return out
