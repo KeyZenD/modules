@@ -17,8 +17,8 @@ class BiographyMod(loader.Module):
             Наложение реплайнутого войса на минус кровостока
         """
         reply = await message.get_reply_message()
-        if not reply or not reply.voice:
-            return await message.edit("<b>Reply to voice.</b>")
+        if not reply or not reply.file or not reply.file.mime_type.startswith("audio"):
+            return await message.edit("<b>Reply to audio.</b>")
         await message.edit("<b>Biography...</b>")
         voice = io.BytesIO()
         await reply.download_media(voice)
