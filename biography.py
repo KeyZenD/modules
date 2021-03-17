@@ -19,7 +19,7 @@ class BiographyMod(loader.Module):
         reply = await message.get_reply_message()
         if not reply or not reply.voice:
             return await message.edit("<b>Reply to voice.</b>")
-        await message.edit("Processing...")
+        await message.edit("<b>Biography...</b>")
         voice = io.BytesIO()
         await reply.download_media(voice)
         voice.seek(0)
