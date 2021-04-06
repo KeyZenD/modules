@@ -14,7 +14,7 @@ class OneMessageMod(loader.Module):
 	async def omstartcmd(self, message):
 		"""Start OneMessage mode"""
 		self._db.set("OneMessage", "status", True)
-		self._db.set("OneMessage", "my_id", message.from_id)
+		self._db.set("OneMessage", "my_id", message.sender_id)
 		await message.edit("<b>OneMessage mode activated!</b>")
 		
 	async def omstopcmd(self, message):
@@ -28,10 +28,10 @@ class OneMessageMod(loader.Module):
 		if message.message:
 			if message.raw_text[0] in self._db.get("friendly-telegram.modules.corectrl", "command_prefix", ".") or message.fwd_from:
 				return
-		if self._db.get("OneMessage", "status", None) and message.from_id == self._db.get("OneMessage", "my_id", None) and not message.media:
+		if self._db.get("OneMessage", "status", None) and message.sender_id == self._db.get("OneMessage", "my_id", None) and not message.media:
 			last_msg = (await self.client.get_messages(message.to_id, limit=2))[-1]
-			if last_msg.from_id == message.from_id and not last_msg.fwd_from:
-				text = last_msg.text
+			if last_msg.sender_id == message.sender_id and not last_msg.fwd_from:
+				text = last_msg.text 
 				text += "\n"*2
 				text += message.text
 				if message.is_reply:
