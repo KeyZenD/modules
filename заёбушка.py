@@ -7,10 +7,6 @@ def register(cb):
 class ЗаёбушкаMod(loader.Module):
 	"""Заебет любого"""
 	strings = {'name': 'Заёбушка'}
-	def __init__(self):
-		self.name = self.strings['name']
-		self._me = None
-		self._ratelimit = []
 		
 	async def заебуcmd(self, message):
 		""".заебу <колличество> <реплай на того, кого заебать>"""
@@ -18,7 +14,7 @@ class ЗаёбушкаMod(loader.Module):
 		if not reply:
 			await message.edit("<b>А кого заёбывать-то?</b>")
 			return
-		id = reply.from_id
+		id = reply.sender_id
 		args = utils.get_args(message)
 		count = 50
 		if args:
@@ -34,4 +30,3 @@ class ЗаёбушкаMod(loader.Module):
 			msg = await message.client.send_message(message.to_id, txt)
 			await sleep(0.3)
 			await msg.delete()
-			
