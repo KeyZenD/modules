@@ -14,8 +14,8 @@ class DelmeMod(loader.Module):
 		chat = message.chat
 		if chat:
 			args = utils.get_args_raw(message)
-			if args != str(message.chat.id+message.from_id):
-				await message.edit(f"<b>Если ты точно хочешь это сделать, то напиши:</b>\n<code>.delme {message.chat.id+message.from_id}</code>")
+			if args != str(message.chat.id+message.sender_id):
+				await message.edit(f"<b>Если ты точно хочешь это сделать, то напиши:</b>\n<code>.delme {message.chat.id+message.sender_id}</code>")
 				return
 			all = (await self.client.get_messages(chat, from_user="me")).total
 			messages = [msg async for msg in self.client.iter_messages(chat, from_user="me")]
