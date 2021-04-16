@@ -25,8 +25,13 @@ class BiographyMod(loader.Module):
         voice.seek(0)
         voice = AudioSegment.from_file(voice)
         biogr = io.BytesIO(biography)
+        vol = utils.get_args_raw(message)
+        if vol and  vol.isdigit():
+            vol = 100-int(vol)
+        else:
+            vol = 20
         biogr.seek(0)
-        biogr = AudioSegment.from_file(biogr)[0:len(voice)]-20
+        biogr = AudioSegment.from_file(biogr)[0:len(voice)]-vol
         out = biogr.overlay(voice, position=0)
         output = io.BytesIO()
         output.name="biography.ogg"
