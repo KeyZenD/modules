@@ -9,7 +9,7 @@ from .. import loader, utils
 
 logger = logging.getLogger(__name__)
 
-font_ = get("https://x0.at/MHH.ttf").content
+font_ = get("https://github.com/KeyZenD/l/blob/master/mono.otf?raw=true").content
 
 @loader.tds
 class Im2BinaryMod(loader.Module):
