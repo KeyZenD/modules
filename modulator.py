@@ -1,7 +1,7 @@
 R=int
 Q=float
 E=len
-# requires: pydub
+# requires: pydub numpy
 from ..  import loader as A,utils
 import os
 from pydub import AudioSegment as M
