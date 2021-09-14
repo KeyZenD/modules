@@ -1,6 +1,7 @@
 from asyncio import sleep
 from userbot.events import register
 
+
 @register(outgoing=True, pattern='^.fl ?(.*)')
 async def fakeload(e):
 	inp = e.pattern_match.group(1)
