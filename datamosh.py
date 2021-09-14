@@ -80,7 +80,7 @@ class DataMoshMod(loader.Module):
 		_f.close()
 		
 		subprocess.call(f'ffmpeg -loglevel quiet -y -i {fn}2.avi {fn}2.mp4', shell=True)
-		await message.client.send_file(message.chat.id, file=fn+"2.mp4", video_note=bool(reply.video_note))
+		await message.client.send_file(message.to_id, file=fn+"2.mp4", video_note=bool(reply.video_note))
 		os.system(f"rm -f {fn}*")
 		await message.delete()
 		
