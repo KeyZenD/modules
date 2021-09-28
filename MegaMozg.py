@@ -27,6 +27,7 @@ class MegaMozgMod(loader.Module):
     def str2bool(v):
         return v.lower() in ("yes", "y", "ye", "yea", "true", "t", "1", "on", "enable", "start", "run", "go", "да")
 
+    
     async def mozgcmd(self, m: types.Message):
         '.mozg <on/off/...> - Переключить режим дурачка в чате'
         args = utils.get_args_raw(m)
@@ -48,6 +49,15 @@ class MegaMozgMod(loader.Module):
         self.db.set(self._db_name, 'chats', chats)
         return await utils.answer(m, self.strings('off').format(self.strings('pref')))
 
+    async def mozgchancecmd(self, m: types.Message):
+        '.mozgchance <int> - Устанвоить шанс 1 к N.\n0 - всегда отвечать'
+        args: str = utils.get_args_raw(m)
+        if args.isdigit():
+            self.db.set(self._db_name, 'chance', int(args))
+            return await utils.answer(m, self.strings('status').format(self.strings('pref'), args))
+            
+        return await utils.answer(m, self.strings('need_arg').format(self.strings('pref')))
+    
     async def watcher(self, m: types.Message):
         if not isinstance(m, types.Message):
             return
@@ -55,6 +65,10 @@ class MegaMozgMod(loader.Module):
             return
         if m.chat.id not in self.db.get(self._db_name, 'chats', []):
             return
+        ch = self.db.get(self._db_name, 'chance', 0)
+        if ch != 0:
+            if random.randint(0, ch) != 0:
+                return
         text = m.raw_text
         words = {random.choice(
             list(filter(lambda x: len(x) >= 3, text.split()))) for _ in ".."}
