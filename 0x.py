@@ -1,9 +1,7 @@
 from .. import loader, utils  # pylint: disable=relative-beyond-top-level
-import logging
 from requests import post
 import io
 
-logger = logging.getLogger(__name__)
 
 @loader.tds
 class x0Mod(loader.Module):
