@@ -2,7 +2,7 @@ from requests import head,get
 from urllib.parse import urlsplit as E,parse_qs as H
 import json,io,re
 from ..  import loader as A,utils
-class B(A.Module):
+class TikTokDlMod(A.Module):
 	strings={'name':'TikTokDl'}
 	async def ttcmd(J,message):
 		A=message;B=await A.get_reply_message();F=utils.get_args_raw(A);C=lambda x:f"<b>{x}</b>"
