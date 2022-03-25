@@ -1,8 +1,8 @@
 from requests import head,get
 from urllib.parse import urlsplit as E,parse_qs as H
-import json,io
+import json,io,re
 from ..  import loader as A,utils
-class TikTokDlMod(A.Module):
+class B(A.Module):
 	strings={'name':'TikTokDl'}
 	async def ttcmd(J,message):
 		A=message;B=await A.get_reply_message();F=utils.get_args_raw(A);C=lambda x:f"<b>{x}</b>"
@@ -26,6 +26,6 @@ async def I(url):
 		I=H(E(A).query);B=I.get('share_item_id')[0];G,C,D=await F(B,1)
 		if not C:raise
 	except:
-		B=E(A).path.split('/')[-1];G,C,D=await F(B,2)
+		B=''.join(re.findall('[0-9]',E(A).path.split('/')[-1]));G,C,D=await F(B,2)
 		if not C:return False,D
 	return G[0]['video']['bit_rate'][0]['play_addr']['url_list'][-1],D
