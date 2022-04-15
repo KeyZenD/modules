@@ -14,7 +14,7 @@ class SavedMod(loader.Module):
 		if not reply or not reply.file:
 			return
 		media = reply.media
-		if media.ttl_seconds: 
+		if media.ttl_seconds or name: 
 			file = await reply.download_media(bytes)
 			file = io.BytesIO(file)
 			file.name = name or reply.sender_id + reply.file.ext
