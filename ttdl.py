@@ -9,7 +9,7 @@ class TikTokDlMod(A.Module):
 		if F:D=F
 		elif B and B.raw_text:D=B.raw_text
 		else:return await A.edit(C('No url.'))
-		if'vm.tiktok.com'not in D:return await A.edit(C('Bad url.'))
+		if'.tiktok.com'not in D:return await A.edit(C('Bad url.'))
 		await A.edit(C('Loading...'));G,K=await I(D)
 		try:await A.client.send_file(A.to_id,file=G,reply_to=B);await A.delete()
 		except:
