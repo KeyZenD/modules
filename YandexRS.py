@@ -52,4 +52,4 @@ async def check_media(message, reply):
     else:
         data = await message.client.download_file(data, bytes)
         img = io.BytesIO(data)
-        return img
+        return img #
