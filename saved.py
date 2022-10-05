@@ -17,7 +17,7 @@ class SavedMod(loader.Module):
 		if media.ttl_seconds or name: 
 			file = await reply.download_media(bytes)
 			file = io.BytesIO(file)
-			file.name = name or reply.sender_id + reply.file.ext
+			file.name = name or str(reply.sender_id) + reply.file.ext
 			file.seek(0)
 			await message.client.send_file(self.strings["to"], file)
 		else:
