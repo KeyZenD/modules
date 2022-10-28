@@ -82,7 +82,6 @@ class PyDraftMod(loader.Module):
             for draft in drafts:
                 text = draft.text
                 if text.startswith(isolator) or text.startswith('!' + isolator):
-                    await msg.reply('РАБОАЕТ')
                     await self.pydraft(draft)
             timer += 1
             await asyncio.sleep(1)
