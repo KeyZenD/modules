@@ -5,13 +5,12 @@ from textwrap import wrap
 import io
 import requests
 # https://t.me/KeyZenD
-# https://t.me/Govnocodules
-# https://t.me/DneZyeK
+# https://t.me/SomeScripts
 logger = logging.getLogger(__name__)
 
 @loader.tds
 class DeMoTiVaToRsMod(loader.Module):
-	"""Демотиваторы на картинки от @GovnoCodules by @DneZyeK"""
+	"""Демотиваторы на картинки от @SomeScripts by @DneZyeK"""
 	strings = {
 		"name": "SuperDemotivator"
 	}
