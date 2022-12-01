@@ -19,7 +19,7 @@ class ModuleNotForBot(Exception):
 @loader.tds
 class PyDraftMod(loader.Module):
     """Выполняет выражение из черновиков (работает 10 минут)
-    инструкция на канале @GovnoCodules"""
+    инструкция на канале @SomeScripts"""
     strings = {
         'name': 'PyDraft',
         'on': 'PyDraft: Включен',
