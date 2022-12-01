@@ -7,8 +7,7 @@ import logging
 from wand.image import Image
 from PIL import Image as IM
 # https://t.me/KeyZenD
-# https://t.me/govnocodules
-# https://t.me/DneZyeK
+# https://t.me/SomeScripts
 logger = logging.getLogger(__name__)
 
 def register(cb):
