@@ -1,4 +1,4 @@
 # Govno modules
-Сборник моих [говнокодулей](https://t.me/govnocodules)
+Сборник моих [модулей](https://t.me/SomeScripts)
 
-[А ТУТ КОТИКИ :3](https://t.me/KeyZenD)
+[я](https://t.me/KeyZenD)
