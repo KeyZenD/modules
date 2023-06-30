@@ -20,7 +20,7 @@ async def shacal(event):
 		else:
 			return False
 
-		if not data or data is None:
+		if not data:
 			return False
 		else:
 			return data
