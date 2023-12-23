@@ -29,6 +29,6 @@ class ScrSpamMod(loader.Module):
 			a = int(r[0])
 		await message.edit("Screenshoting...")
 		for _ in range(a):
-			await message.client(functions.messages.SendScreenshotNotificationRequest(peer=message.to_id, reply_to_msg_id=message.id))
+			await message.client(functions.messages.SendScreenshotNotificationRequest(peer=message.to_id, reply_to=types.InputReplyToMessage(reply_to_msg_id=message.id)))
 		await message.delete()
 		
