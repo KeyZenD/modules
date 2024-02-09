@@ -48,3 +48,4 @@ async def CM(R):
 	else:return D,C
 	if not B or B is C:return D,C
 	else:return B,E
+#Блять ну я и долбаёб так код сохранять
