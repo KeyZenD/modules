@@ -1,11 +1,6 @@
-# @KeyZenD & @D4n13l3k00
-
 import random
-
 from telethon import types
-
 from .. import loader, utils
-
 
 @loader.tds
 class MegaMozgMod(loader.Module):
@@ -16,7 +11,6 @@ class MegaMozgMod(loader.Module):
         'status': '{}{}',
         'on': '{}Включён',
         'off': '{}Выключен',
-        
     }
     _db_name = 'MegaMozg'
 
@@ -27,7 +21,6 @@ class MegaMozgMod(loader.Module):
     def str2bool(v):
         return v.lower() in ("yes", "y", "ye", "yea", "true", "t", "1", "on", "enable", "start", "run", "go", "да")
 
-    
     async def mozgcmd(self, m: types.Message):
         '.mozg <on/off/...> - Переключить режим дурачка в чате'
         args = utils.get_args_raw(m)
@@ -55,7 +48,6 @@ class MegaMozgMod(loader.Module):
         if args.isdigit():
             self.db.set(self._db_name, 'chance', int(args))
             return await utils.answer(m, self.strings('status').format(self.strings('pref'), args))
-            
         return await utils.answer(m, self.strings('need_arg').format(self.strings('pref')))
     
     async def watcher(self, m: types.Message):
@@ -75,9 +67,19 @@ class MegaMozgMod(loader.Module):
         msgs = []
         for word in words:
             [msgs.append(x) async for x in m.client.iter_messages(m.chat.id, search=word) if x.replies and x.replies.max_id]
+        
+        # Проверка на пустоту списка msgs
+        if not msgs:
+            return  # Пропускаем, если сообщений для ответа не найдено
+        
         replier = random.choice(msgs)
         sid = replier.id
         eid = replier.replies.max_id
         msgs = [x async for x in m.client.iter_messages(m.chat.id, ids=list(range(sid+1, eid+1))) if x and x.reply_to and x.reply_to.reply_to_msg_id == sid]
+        
+        # Ещё одна проверка на пустоту списка msgs после второго запроса сообщений
+        if not msgs:
+            return  # Пропускаем, если нет подходящих сообщений для ответа
+        
         msg = random.choice(msgs)
         await m.reply(msg)
