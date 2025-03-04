@@ -52,3 +52,4 @@ class BlackLinesMod(loader.Module):
 			await message.delete()
 			await message.client.send_file(message.to_id, response.media)
 			
+#у меня каждый коммит в чате упоминается ботом
